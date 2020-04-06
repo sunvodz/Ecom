@@ -1,0 +1,262 @@
+//// -- LEVEL 1
+//// -- Tables and References
+
+Table UserAccount as UA {
+  id int [pk, increment]
+  user_name varchar [unique]
+  password varchar
+  access access_rights
+}
+// -------------------------------------------------------------------------------
+Table Customer as C {
+  id int [pk, increment]
+  user_id int [ref: - UA.id]
+  name varchar
+  address varchar
+  total_order int [default: 0, note: 'Calculate the total order made by the customer']
+  reward_points int  [default: 0, note: 'We store used so we can query the points earned']
+  last_order_time timestamp
+  created_at timestamp
+  payment_method payment_methods // do wee need this??
+}
+
+Table RestaurantStaffs as RS {
+  id int [pk, increment]
+  user_id int [ref: - UA.id]
+  restaurant_idid int [ref: > R.id]
+  name varchar
+  created_at timestamp
+  termination_date timestamp [default: null]
+}
+
+Table FDSManagers as manager{
+  id int [pk, increment]
+  user_id int [ref: - UA.id]
+  name varchar
+  created_at timestamp
+}
+
+Table DeliveryRiders as Rider {
+  id int [pk, increment]
+  user_id int [ref: - UserAccount.id]
+  name varchar
+  created_at timestamp
+  termination_date timestamp [default: null]
+  type rider_type
+}
+// -------------------------------------------------------------------------------
+Table Restaurants as R {
+  id int [pk, increment]
+  name varchar
+  address varchar
+  postalcode int
+  min_order_amount int [note: 'Mininum order treshold. Order not accepted if treshold not met']
+}
+
+Table FoodItems as  FI {
+  id int [pk, increment]
+  fcid int [ref: > FC.fcid]
+  restaurant_id int [ref: > R.id]
+  name varchar
+  price decimal
+  daily_limit int [note: 'will be reseted daily. do we have to have static table to set the limit?']
+  availability boolean 
+}
+
+Table FootCategory as FC {
+  fcid int [pk, increment]
+  cuisine_name cuisines
+}
+
+Table CreditCard as CC {
+  ccid int [pk, increment]
+  customer_id int [ref: > C.id] 
+  credit_card_number varchar [unique]
+}
+
+Table Locations as Locations {
+  id int [pk, increment]
+  customer_id int [ref: > C.id]
+  address varchar
+  postalcode int
+  created_at timestamp [note: 'Stores most recent 5 locations']
+}
+
+Table Orders as O {
+  id int [pk, increment]
+  cost decimal
+  delivery_cost decimal 
+  customer_id int [ref: > C.id]
+  rider_id int [ref: > Rider.id]
+  restaurant_id int [ref: > R.id]
+  delivery_location_id int [ref: - Locations.id]
+}
+
+Table OrderItems as OI {
+  order_id int [ref: > O.id]
+  food_item_id int [ref: - FI.id]
+  quantity int
+  price decimal
+}
+
+Table Assignment {
+	id int 
+	order_id int [ref: - O.id]
+	rider_id int [ref: - Rider.id]
+	time_order_placed timestamp
+	time_depart_to_restaurant timestamp
+	time_arrive_at_restaurant timestamp
+	time_arrive_to_customer timestamp
+	time_arrive_at_customer timestamp
+	time_delivered timestamp
+}
+
+Table Reviews as Reviews {
+  customer_id int [pk, ref: > C.id]
+  food_item_id int [pk, ref: >  FI.id]
+  order_id int [pk, ref: > O.id]
+  rider_id int [pk, ref: > Rider.id]
+  description varchar 
+  rating rating [note:'out of 10']
+  created_at timestamp
+}
+
+Table PartTimeRider {
+  delivery_id int [pk, ref: - Rider.id]
+  week_salary decimal
+  week_scheduled_id int [ref: - PTS.id]
+}
+
+Table PartTimeWeekSchedule as PTS{
+  id int [pk, increment]
+  day text
+  start_time int
+  end_time int
+}
+
+Table FullTimeRider {
+  delivery_id int [pk, ref: - Rider.id]
+  month_salary decimal
+  month_scheduled_id int [ref: - FTMS.id]
+}
+
+Table Workdays {
+  //Static table
+  days int 
+  description text
+}
+
+Table Shifts {
+ //Static table
+  shift int [pk]
+  description text
+}
+
+Table FullTimeWeekSchedule as FTWS{
+  id int [pk, increment]
+  days int [ref: < Workdays.days]
+  shift int [ref: < Shifts.shift]
+}
+
+Table MonthlySchedule as FTMS {
+  id int [pk, increment]
+  full_time_week_schedule_id int [ref: - FTWS.id]
+}
+
+Table RestaurantPromotions as RP {
+  id int [pk, increment]
+  restaurant_id int [ref: > R.id]
+  condition_id int [ref: > Conditions.id]
+  hour_from int [default: 10]
+  hour_to int [default: 20]
+  start_date datetime [default: 'now()']
+  end_date datetime
+  promo_type promotion_type
+  value int
+  created_by int [ref: > RS.id]
+}
+
+Table FDSPromotions as FDSP {
+  id int [pk, increment]
+  condition_id int [ref: > Conditions.id]
+  start_date datetime
+  end_date datetime
+  hour_from int [default: 10]
+  hour_to int [default: 20]
+  promo_type  promotion_type
+  value int
+  created_by int [ref: - FDSManagers.id]
+}
+
+Table Conditions as Conditions {
+  id int [pk, increment]
+  left_operand operands
+  operator operators
+  right_operand int
+}
+
+Table Renumeration as Renumeration {
+  id int [pk]
+  salary_type salary_type
+  value int
+  created_at timestamp
+}
+
+Table Commission as Commission {
+  id int [pk]
+  deliveries_up_to_count int
+  commission_amount int
+  created_at timestamp
+}
+
+Enum payment_methods {
+  cash
+  credit_card
+}
+
+Enum cuisines {
+  local
+  western
+  thai
+  italian
+  fast_food
+}
+
+Enum rider_type {
+  part_time
+  full_time
+}
+
+Enum operators {
+  equals
+  not_equals
+  greater
+  greater_equal
+  less
+  less_equal
+}
+
+Enum operand {
+  order_total
+  first_order
+  days_since_last_order
+}
+
+Enum promotion_type {
+  absolute
+  percentage
+  delivery
+}
+
+Enum salary_type {
+  weekly
+  monthly
+}
+
+Enum access_rights {
+  customer
+  rider
+  restaurant_view_only
+  restaurant_admin
+  superuser
+}

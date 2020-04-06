@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    /* color: #555; */
+    /* font-size: 0.9em; */
+    /* background: #000; */
+}
+
+* {
+    transition: .2s;
+}
+
+.link {
+    text-decoration: none;
+}
+
+input, select {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    border: solid 1px #32782E;
+    background: #32782E;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 100px;
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+    background: rgb(255, 153, 0);
+    border: solid 1px rgb(255, 153, 0);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border: solid 1px #FFA200;
+}
+
+input[type="radio"] {
+    width: auto;
+    margin: 10px;
+}
+
+button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.formError {
+    color: red;
+    font-size: small;
+}
+
+.oneFourth {
+    width: 25%;
+    float: left;
+}
+
+header {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background: #fff;
+    padding-bottom: 10px;
+}
+
+header .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+header .logo {
+    float: left;
+    color: #D70F64;
+    font-weight: bold;
+}
+
+header .logo:hover {
+    cursor: pointer;
+}
+
+header .logo img {
+    display: inline-block;
+    margin-bottom: -5px;
+}
+
+nav {
+    float: right;
+}
+
+nav span {
+    background: #32782E;
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 100px;
+    font-size: small;
+    text-transform: uppercase;
+}
+
+nav span:hover {
+    cursor: pointer;
+    background: #FFA200;
+}
+
+.tabs {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tabs .link {
+    color: #333;
+}
+
+.tabs span {
+    background: #efefef;
+    padding: 5px 20px;
+    border-radius: 100px;
+    margin: 0 5px;
+    /* font-weight: bold; */
+    font-size: small;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.tabs span:hover {
+    cursor: pointer;
+    background: #32782E;
+    color: #fff;
+}
+
+.UserLogin, .RestaurantLogin, .UserSignup, .RestaurantSignup {
+    max-width: 350px;
+    margin: 80px auto 0 auto;
+    border-radius: 10px;
+    padding: 0 20px;
+}
+
+.Home {
+    height: 100vh;
+    /* max-width: 1000px;
+    margin: auto; */
+    /* display: flex;
+    align-items: center; */
+    /* padding: 20px; */
+    height: 100vh;
+    background: url('./assets/images/hero.jpg') center;
+    background-size: cover;
+}
+
+.Home .container {
+    display: flex;
+    align-items: center;
+    height: 70vh;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+.Home .inHomeContainer {
+    max-width: 700px;
+}
+
+.Home h1 {
+    text-transform: uppercase;
+    font-size: 4em;
+    line-height: 1;
+}
+
+.Dashboard {
+    margin-top: 80px;
+}
+
+.Restaurants .searchbar {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 8px 15px;
+    /* box-shadow: 0px 0 30px 0 #e4e4e4; */
+    border-radius: 100px;
+}
+
+.searchbar input[type="text"] {
+    width: 86%;
+    border-radius: 100px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 15px 30px;
+}
+
+.searchbar input[type="submit"] {
+    width: 100px;
+    margin-left: -18px;
+    padding: 15px 30px;
+    text-transform: uppercase;
+}
+
+.Home .searchbar {
+    max-width: 600px;
+}
+
+.chips {
+    max-width: 600px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.chips span {
+    padding: 5px 20px;
+    background: #333;
+    color: #fff;
+    border-radius: 100px;
+    font-size: small;
+    margin: 5px;
+    display: inline-block;
+}
+
+.chips span:hover {
+    cursor: pointer;
+    background: #FFA200;
+}
+
+.thumbnailList {
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.thumbnailList .Thumbnail {
+    width: 25%;
+    float: left;
+    overflow: hidden;
+}
+
+.thumbnailList .Thumbnail .container {
+    margin: 0 10px 30px;
+}
+
+.thumbnailList .Thumbnail .container .imgContainer {
+    overflow: hidden;
+    height: 200px;
+}
+
+.thumbnailList .Thumbnail figure {
+    margin: 0;
+    cursor: pointer;
+}
+
+.thumbnailList .Thumbnail figure:hover img {
+    cursor: pointer;
+    transform: scale(1.1);
+    transform-origin: 50% 50%;
+}
+
+.thumbnailList .Thumbnail img {
+    width: 100%;
+    transition: .4s;
+}
+
+.thumbnailList .Thumbnail .title {
+    font-weight: 600;
+    color: #555;
+    margin: 5px 0;
+    height: 17px;
+    overflow: hidden;
+}
+
+.thumbnailList .Thumbnail .description {
+    color: #555;
+    font-size: 14px;
+    margin: 5px 0;
+    height: 34px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.myRequestsList {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.MyRequestsList {
+    text-align: center;
+    border: solid 1px #ccc;
+    overflow: hidden;
+    font-size: small;
+    margin: 20px 0;
+}
+
+.MyRequestsList .head {
+    width: 100%;
+    padding: 10px;
+    border-bottom: solid 1px #ccc;
+    background: #efefef;
+    overflow: hidden;
+}
+
+.MyRequestsList .head .orderNum {
+    float: left;
+}
+
+.MyRequestsList .head .rating {
+    float: right;
+    padding: 0 20px;
+}
+
+.MyRequestsList .myRequestsCells {
+    padding: 15px 0;
+}
+
+.status {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .Home h1 {
+        font-size: 2.2em;
+    }
+    .searchbar {
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .searchbar input[type="text"] {
+        width: 100%;
+        border-radius: 100px;
+        padding: 10px 20px;
+    }
+    .searchbar input[type="submit"] {
+        width: 100%;
+        margin: auto;
+        padding: 10px 20px;
+    }
+    .thumbnailList .Thumbnail {
+        width: 100%;
+        float: none;
+    }
+}
+
+@media (min-width:600px) and (max-width: 1024px) {
+    .thumbnailList .Thumbnail {
+        width: 50%;
+    }
+}
