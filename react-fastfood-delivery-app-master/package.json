@@ -20,7 +20,7 @@
     "redux-logger": "^3.0.6"
   },
   "devDependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "jquery": "^3.2.1"
   },
   "scripts": {
